@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -97,7 +98,7 @@ public class DownloadUtils {
                         }
                     };
                     urlStr = URLDecoder.decode(urlStr, StandardCharsets.UTF_8.name());
-                    restTemplate.execute(urlStr, HttpMethod.GET, requestCallback, fileResponse -> {
+                    restTemplate.execute(URI.create(urlStr), HttpMethod.GET, requestCallback, fileResponse -> {
                         FileUtils.copyToFile(fileResponse.getBody(), realFile);
                         return null;
                     });
